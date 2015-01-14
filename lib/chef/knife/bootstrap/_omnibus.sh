@@ -107,8 +107,10 @@ install_package() {
 detect_info() {
   if [ -f "/opt/chef-server/bin/chef-server-ctl" ] ; then
     server_root="/opt/chef-server"
+    server_ctl="chef-server-ctl"
   elif [ -f "/opt/opscode/bin/private-chef-ctl" ] ; then
     server_root="/opt/opscode"
+    server_ctl="private-chef-ctl"
   fi
 
   info "Chef Server detected in $server_root"
@@ -169,13 +171,13 @@ symlink_binaries() {
 
 reconfigure_chef_server() {
   banner "Reconfiguring Chef Server"
-  chef-server-ctl reconfigure
+  ${server_root}/bin/${server_ctl} reconfigure
   info "Server reconfigured"
 }
 
 test_chef_server() {
   banner "Testing Chef Server"
-  chef-server-ctl test
+  ${server_root}/bin/${server_ctl} test
   info "Pedant suite finished"
 }
 
