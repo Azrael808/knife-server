@@ -43,7 +43,7 @@ failed_download() {
 is_server_installed() {
   if [ -f "/opt/chef-server/bin/chef-server-ctl" ] ; then
     return 0
-  elif [ -f "/opt/opscode/bin/chef-server-ctl" ] ; then
+  elif [ -f "/opt/opscode/bin/private-chef-ctl" ] ; then
     return 0
   else
     return 1
@@ -107,7 +107,7 @@ install_package() {
 detect_info() {
   if [ -f "/opt/chef-server/bin/chef-server-ctl" ] ; then
     server_root="/opt/chef-server"
-  elif [ -f "/opt/opscode/bin/chef-server-ctl" ] ; then
+  elif [ -f "/opt/opscode/bin/private-chef-ctl" ] ; then
     server_root="/opt/opscode"
   fi
 
