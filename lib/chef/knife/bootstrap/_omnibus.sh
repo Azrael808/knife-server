@@ -124,6 +124,9 @@ patch_knife_code() {
   if [ -f "$patched" ]; then
     info "Patched knife configure detected, skipping"
   elif echo "$script" | $server_root/embedded/bin/ruby -r chef/version; then
+    if [[ "$platform" == "el" ]]; then
+      yum install -y patch
+    fi
     info "Patching knife configure bug (CHEF-5211)"
     (cd $gems/chef-11.* && cat <<PATCH | tr "#" "\047" | patch -p1)
 diff --git a/lib/chef/knife/configure.rb b/lib/chef/knife/configure.rb
